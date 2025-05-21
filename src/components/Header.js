@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
-import { Menu, X, User, LogOut, Search } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import { Menu, X, User, LogOut, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import ThemeToggle from "./ThemeToggle";
-import Image from 'next/image';
-import SearchModal from './SearchModal';
+import Image from "next/image";
+import SearchModal from "./SearchModal";
 
 export default function Header() {
   const { data: session } = useSession();
@@ -28,6 +28,12 @@ export default function Header() {
               className="text-sm font-medium transition-colors hover:text-primary"
             >
               Blogs
+            </Link>
+            <Link
+              href="/tags"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Tags
             </Link>
             <Link
               href="/about"
@@ -97,7 +103,11 @@ export default function Header() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
 
@@ -110,6 +120,13 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blogs
+              </Link>
+              <Link
+                href="/tags"
+                className="text-sm font-medium transition-colors hover:text-primary"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Tags
               </Link>
               <Link
                 href="/about"
@@ -180,7 +197,9 @@ export default function Header() {
               ) : (
                 <>
                   <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full">Sign In</Button>
+                    <Button variant="ghost" className="w-full">
+                      Sign In
+                    </Button>
                   </Link>
                 </>
               )}
@@ -189,7 +208,10 @@ export default function Header() {
         )}
       </div>
 
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </header>
   );
 }

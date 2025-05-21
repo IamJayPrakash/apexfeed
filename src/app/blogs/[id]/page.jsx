@@ -170,7 +170,7 @@ export default function BlogDetail() {
                 key={tag}
                 className="px-3 py-1 text-sm text-gray-800 bg-gray-100 rounded-full"
               >
-                {tag}
+                #{tag}
               </span>
             ))}
           </div>

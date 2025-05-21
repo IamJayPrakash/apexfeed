@@ -118,7 +118,7 @@ export default function SearchModal({ isOpen, onClose }) {
                             key={tag}
                             className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground"
                           >
-                            {tag}
+                            #{tag}
                           </span>
                         ))}
                       </div>

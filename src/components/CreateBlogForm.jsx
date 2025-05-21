@@ -125,7 +125,7 @@ export default function CreateBlogForm({ initialData = null, isEditing = false }
               key={tag}
               className="flex items-center gap-2 px-3 py-1 text-sm text-gray-800 bg-gray-100 rounded-full"
             >
-              {tag}
+              #{tag}
               <button
                 type="button"
                 onClick={() => handleRemoveTag(tag)}
