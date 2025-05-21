@@ -17,7 +17,7 @@ Disallow: /admin/*
 Disallow: /dashboard/*
 
 # Host
-Host: https://apexfeed.vercel.app
+Host: https://apexfeedblog.vercel.app/
 
 # Sitemaps
-Sitemap: https://apexfeed.vercel.app/sitemap.xml
+Sitemap: https://apexfeedblog.vercel.app/sitemap.xml

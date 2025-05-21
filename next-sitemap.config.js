@@ -1,18 +1,19 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_BASE_URL || 'https://apexfeed.vercel.app',
+  siteUrl:
+    process.env.NEXT_PUBLIC_BASE_URL || "https://apexfeedblog.vercel.app/",
   generateRobotsTxt: true,
   generateIndexSitemap: true,
-  changefreq: 'daily',
+  changefreq: "daily",
   priority: 0.7,
   sitemapSize: 7000,
   exclude: [
-    '/api/*',
-    '/private/*',
-    '/admin/*',
-    '/dashboard/*',
-    '/_next/*',
-    '/static/*',
+    "/api/*",
+    "/private/*",
+    "/admin/*",
+    "/dashboard/*",
+    "/_next/*",
+    "/static/*",
   ],
   robotsTxtOptions: {
     additionalSitemaps: [
@@ -20,26 +21,21 @@ module.exports = {
     ],
     policies: [
       {
-        userAgent: '*',
-        allow: '/',
+        userAgent: "*",
+        allow: "/",
         disallow: [
-          '/api/*',
-          '/private/*',
-          '/admin/*',
-          '/dashboard/*',
-          '/_next/*',
-          '/static/*',
+          "/api/*",
+          "/private/*",
+          "/admin/*",
+          "/dashboard/*",
+          "/_next/*",
+          "/static/*",
         ],
       },
       {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: [
-          '/api/*',
-          '/private/*',
-          '/admin/*',
-          '/dashboard/*',
-        ],
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/api/*", "/private/*", "/admin/*", "/dashboard/*"],
       },
     ],
   },
@@ -48,9 +44,9 @@ module.exports = {
     return {
       loc: path,
       changefreq: config.changefreq,
-      priority: path === '/' ? 1.0 : config.priority,
+      priority: path === "/" ? 1.0 : config.priority,
       lastmod: new Date().toISOString(),
       alternateRefs: config.alternateRefs ?? [],
-    }
+    };
   },
-} 
+};

@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "ApexFeed is a social media platform for sharing and discovering content.",
   "author": "ApexFeed Team",
-  "homepage": "https://apexfeed.vercel.app",
+  "homepage": "https://apexfeedblog.vercel.app/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
