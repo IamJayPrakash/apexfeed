@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Head from "next/head";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate form
@@ -38,32 +39,29 @@ const Contact = () => {
       return;
     }
 
-    // Form would be submitted to your backend here
-    // This is a placeholder for demonstration
-
-    // Show success message
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(
+          "Thank you for your message! We'll get back to you soon."
+        );
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast.error(data.error || "Failed to send message.");
+      }
+    } catch {
+      toast.error("Failed to send message.");
+    }
     setSubmitStatus({
-      submitted: true,
-      success: true,
-      message: "Thank you for your message! We'll get back to you soon.",
-    });
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
+      submitted: false,
+      success: false,
       message: "",
     });
-
-    // Clear success message after a few seconds
-    setTimeout(() => {
-      setSubmitStatus({
-        submitted: false,
-        success: false,
-        message: "",
-      });
-    }, 5000);
   };
 
   return (
@@ -409,17 +407,16 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="bg-gray-50 dark:bg-card rounded-xl p-8 mb-16">
+          {/* <div className="bg-gray-50 dark:bg-card rounded-xl p-8 mb-16">
             <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
               Our Location
             </h2>
             <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-lg">
-              {/* This is a placeholder for a map. In a real implementation, you would integrate Google Maps or another mapping service */}
               <div className="w-full h-96 bg-gray-200 flex items-center justify-center">
                 <p className="text-gray-500 text-lg">Map of Noida, India</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="text-center bg-green-50 dark:bg-card rounded-xl p-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
@@ -429,7 +426,31 @@ const Contact = () => {
               Stay updated with our latest articles, insights, and announcements
               delivered straight to your inbox.
             </p>
-            <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+            <form
+              className="max-w-md mx-auto flex flex-col sm:flex-row gap-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const email = form[0].value;
+                if (!email) return;
+                try {
+                  const res = await fetch("/api/subscribe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                  });
+                  const data = await res.json();
+                  if (data.success) {
+                    toast.success("Subscribed successfully!");
+                    form.reset();
+                  } else {
+                    toast.error(data.error || "Subscription failed.");
+                  }
+                } catch {
+                  toast.error("Subscription failed.");
+                }
+              }}
+            >
               <input
                 type="email"
                 placeholder="Your email address"

@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pencil, Trash2 } from 'lucide-react';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Pencil, Trash2 } from "lucide-react";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
   const { id } = useParams();
@@ -24,7 +25,7 @@ export default function ProfilePage() {
       try {
         const response = await fetch(`/api/users/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch profile');
+          throw new Error("Failed to fetch profile");
         }
         const data = await response.json();
         setProfile(data);
@@ -40,22 +41,22 @@ export default function ProfilePage() {
   }, [id]);
 
   const handleDeleteBlog = async (blogId) => {
-    if (!confirm('Are you sure you want to delete this blog?')) {
+    if (!confirm("Are you sure you want to delete this blog?")) {
       return;
     }
 
     try {
       const response = await fetch(`/api/blogs/${blogId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
-        throw new Error('Failed to delete blog');
+        throw new Error("Failed to delete blog");
       }
 
-      setBlogs(blogs.filter(blog => blog._id !== blogId));
+      setBlogs(blogs.filter((blog) => blog._id !== blogId));
     } catch (err) {
-      alert('Failed to delete blog');
+      toast.error("Failed to delete blog");
     }
   };
 
@@ -73,7 +74,7 @@ export default function ProfilePage() {
         <div className="text-center">
           <h1 className="mb-4 text-2xl font-bold text-red-600">Error</h1>
           <p className="text-gray-600">{error}</p>
-          <Button onClick={() => router.push('/')} className="mt-4">
+          <Button onClick={() => router.push("/")} className="mt-4">
             Go Home
           </Button>
         </div>
@@ -86,7 +87,7 @@ export default function ProfilePage() {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h1 className="mb-4 text-2xl font-bold">Profile Not Found</h1>
-          <Button onClick={() => router.push('/')} className="mt-4">
+          <Button onClick={() => router.push("/")} className="mt-4">
             Go Home
           </Button>
         </div>
@@ -122,7 +123,7 @@ export default function ProfilePage() {
             {isOwnProfile && (
               <Button
                 variant="outline"
-                onClick={() => router.push('/profile/settings')}
+                onClick={() => router.push("/profile/settings")}
                 className="ml-auto"
               >
                 <Pencil className="w-4 h-4 mr-2" />
@@ -207,4 +208,4 @@ export default function ProfilePage() {
       </div>
     </div>
   );
-} 
+}

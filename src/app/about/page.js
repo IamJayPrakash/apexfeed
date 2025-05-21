@@ -25,7 +25,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <Image
-                src="/api/placeholder/600/400"
+                src="/robo.png"
                 alt="ApexFeed Team"
                 className="rounded-lg shadow-lg w-full"
                 width={600}

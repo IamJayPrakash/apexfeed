@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { Pencil, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { stripHtmlTags } from '@/utils/stripHtml';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { Pencil, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import toast from "react-hot-toast";
 
 export default function BlogDetail() {
   const { id } = useParams();
@@ -24,9 +24,9 @@ export default function BlogDetail() {
         const response = await fetch(`/api/blogs/${id}`);
         if (!response.ok) {
           if (response.status === 404) {
-            setError('Blog not found');
+            setError("Blog not found");
           } else {
-            throw new Error('Failed to fetch blog');
+            throw new Error("Failed to fetch blog");
           }
         }
         const data = await response.json();
@@ -44,22 +44,23 @@ export default function BlogDetail() {
   }, [id]);
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this blog?')) {
+    if (!confirm("Are you sure you want to delete this blog?")) {
       return;
     }
 
     try {
       const response = await fetch(`/api/blogs/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
-        throw new Error('Failed to delete blog');
+        throw new Error("Failed to delete blog");
       }
 
-      router.push('/');
+      router.push("/");
     } catch (err) {
-      alert('Failed to delete blog');
+      console.error("Error deleting blog:", err);
+      toast.error(`Failed to delete blog: ${err.message || err}`);
     }
   };
 
@@ -77,7 +78,7 @@ export default function BlogDetail() {
         <div className="text-center">
           <h1 className="mb-4 text-2xl font-bold text-red-600">Error</h1>
           <p className="text-gray-600">{error}</p>
-          <Button onClick={() => router.push('/')} className="mt-4">
+          <Button onClick={() => router.push("/")} className="mt-4">
             Go Home
           </Button>
         </div>
@@ -89,8 +90,10 @@ export default function BlogDetail() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <h1 className="mb-4 text-2xl font-bold text-gray-800">Blog Not Found</h1>
-          <Button onClick={() => router.push('/')} className="mt-4">
+          <h1 className="mb-4 text-2xl font-bold text-gray-800">
+            Blog Not Found
+          </h1>
+          <Button onClick={() => router.push("/")} className="mt-4">
             Go Home
           </Button>
         </div>
@@ -127,11 +130,7 @@ export default function BlogDetail() {
                 <Pencil className="w-4 h-4 mr-2" />
                 Edit
               </Button>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={handleDelete}
-              >
+              <Button variant="destructive" size="sm" onClick={handleDelete}>
                 <Trash2 className="w-4 h-4 mr-2" />
                 Delete
               </Button>
@@ -155,7 +154,7 @@ export default function BlogDetail() {
               href={`/profile/${blog.author?._id}`}
               className="transition-colors hover:text-gray-900"
             >
-              By {blog.author?.name || 'Anonymous'}
+              By {blog.author?.name || "Anonymous"}
             </Link>
           </div>
           <span>•</span>
@@ -179,10 +178,9 @@ export default function BlogDetail() {
 
         <div
           className="mt-8 prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: blog.content }}  
-        >
-        </div>
+          dangerouslySetInnerHTML={{ __html: blog.content }}
+        ></div>
       </div>
     </article>
   );
-} 
+}
