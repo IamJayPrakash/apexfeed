@@ -1,0 +1,23 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/*
+Disallow: /private/*
+Disallow: /admin/*
+Disallow: /dashboard/*
+Disallow: /_next/*
+Disallow: /static/*
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /api/*
+Disallow: /private/*
+Disallow: /admin/*
+Disallow: /dashboard/*
+
+# Host
+Host: https://apexfeed.vercel.app
+
+# Sitemaps
+Sitemap: https://apexfeed.vercel.app/sitemap.xml
