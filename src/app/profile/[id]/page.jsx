@@ -119,6 +119,11 @@ export default function ProfilePage() {
             <div>
               <CardTitle className="text-2xl">{profile.name}</CardTitle>
               <p className="text-muted-foreground">{profile.email}</p>
+              {profile?.bio && (
+                <p className="mt-2 text-gray-600 whitespace-pre-line">
+                  {profile.bio}
+                </p>
+              )}
             </div>
             {isOwnProfile && (
               <Button

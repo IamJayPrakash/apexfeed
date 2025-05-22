@@ -26,10 +26,10 @@ export default function ProtectedRoute({ children }) {
 
   if (status === 'unauthenticated') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-center p-8 bg-white rounded-lg shadow-lg max-w-md">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Access Denied</h1>
-          <p className="text-gray-600 mb-6">Please login to access this page</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Access Denied</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">Please login to access this page</p>
           <div className="space-x-4">
             <Link
               href="/auth/login"
